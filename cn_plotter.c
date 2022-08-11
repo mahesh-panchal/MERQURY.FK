@@ -280,6 +280,6 @@ void cn_plot(char  *OUT, char  *ASM, char  *READS,
       system(command);
     }
 
-  sprintf(command,"rm -f %s.cni %s.cnz %s.R",troot,troot,troot);
+  sprintf(command,"rm -f %s.cnz %s.R",troot,troot);
   system(command);
 }
