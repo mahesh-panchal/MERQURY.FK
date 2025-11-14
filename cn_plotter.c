@@ -366,6 +366,6 @@ void cn_plot(char  *OUT, int KEEP, char *ATABLE, char *RTABLE,
       fclose(f);
     }
 
-  sprintf(command,"rm -f %s.cnz %s.R",troot,troot,troot);
+  sprintf(command,"rm -f %s.cnz %s.R",troot,troot);
   SystemX(command);
 }
