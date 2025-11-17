@@ -6,7 +6,7 @@
  *  Date  :  March, 2021
  *
  *********************************************************************************************/
- 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -31,7 +31,7 @@ void cn_plot(char  *OUT, int KEEP, char *ATABLE, char *RTABLE,
              int    XMAX, int64  YMAX,
              int    PDF, int ZGRAM, int LINE, int FILL, int STACK,
              int    NTHREADS)
-        
+
 { char      command[1000];  //  buffers for commands & parts thereof
   char      what[1000];
   char      extra[1000];
@@ -83,7 +83,7 @@ void cn_plot(char  *OUT, int KEEP, char *ATABLE, char *RTABLE,
   if (XMAX == 0 || YMAX == 0)
     { int64 sum, last, mass;
       int64 ym, ymax;
-      int   xm, xmax;   
+      int   xm, xmax;
       int       xsec;
 
       ymax = xmax = -1;
@@ -94,7 +94,7 @@ void cn_plot(char  *OUT, int KEEP, char *ATABLE, char *RTABLE,
           last = 0;                    //  Find highest y away from origin
           for (i = 0; i <= 5; i++)
             last += H[i]->hist[low];
-          for (k = low+1; k < high; k++) 
+          for (k = low+1; k < high; k++)
             { sum = 0;
               for (i = 0; i <= 5; i++)
                 sum += H[i]->hist[k];
@@ -360,12 +360,17 @@ void cn_plot(char  *OUT, int KEEP, char *ATABLE, char *RTABLE,
   if (KEEP)
     { FILE *f;
 
-      f = fopen(Catenate(OUT,".cni","",""),"w");
+      f = fopen(Catenate(OUT,".raw.cni","",""),"w");
       for (i = 0; i < 7; i++)
         Dump_Histogram(f,H[i]);
       fclose(f);
     }
 
+  // Save R ready (troot) cni files with meaningful names
+  sprintf(command, "cp %s.cni %s.cni", troot, OUT);
+  SystemX(command);
+
+  // Remove temp files
   sprintf(command,"rm -f %s.cni %s.cnz %s.R",troot,troot,troot);
   SystemX(command);
 }
